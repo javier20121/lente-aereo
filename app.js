@@ -139,6 +139,7 @@ function init() {
   // Setup Scroll Spy
   const categories = document.querySelectorAll('.menu-category-section');
   const navLinks = document.querySelectorAll('.category-nav a');
+  let activeId = "";
 
   window.addEventListener('scroll', () => {
     let current = "";
@@ -151,12 +152,23 @@ function init() {
       } else { break; } // Al encontrar la primera que no cumple, paramos para no sobreescribir
     }
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href').includes(current)) {
-        link.classList.add('active');
-      }
-    });
+    // Solo ejecutamos el cambio si la categoría realmente cambió
+    if (current !== activeId) {
+      activeId = current;
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+          
+          // Desplazar la barra horizontalmente para mostrar el botón activo
+          link.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+          });
+        }
+      });
+    }
   });
 }
 
