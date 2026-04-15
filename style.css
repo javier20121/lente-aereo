@@ -18,6 +18,13 @@
 
 .animate-pop { animation: pop 0.3s ease-out; }
 
+@keyframes slideInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.img-animate { animation: slideInLeft 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-15px); }
@@ -91,11 +98,12 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   color: white;
-  padding: 2rem 1rem 6rem;
+  padding: 1.5rem 1rem 4rem;
+  text-align: center; /* Centrado por defecto para móvil */
 }
 
 .hero::before {
@@ -135,7 +143,7 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   gap: 3rem; 
   max-width: 1200px; 
   margin: 0 auto;
-  text-align: left;
+  justify-items: center; /* Centra el contenido en móvil */
 }
 
 .hero-copy h2 { 
@@ -151,13 +159,13 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   font-size: 1.2rem;
   max-width: 500px;
   color: rgba(255,255,255,0.8);
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
 }
 
 .hero-video-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 380px; /* Ajustado para mejor armonía */
+  width: 85%; /* Un poco más pequeño en móvil para que no sature */
+  max-width: 340px; 
   margin: 0 auto;
   aspect-ratio: 4 / 5; /* Proporción vertical estética */
   border-radius: 35px; 
@@ -178,16 +186,16 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   background: var(--primary);
   border: none;
   color: white;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem;
   border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
   position: fixed;
-  bottom: 2.2rem;
-  right: 6.5rem;
+  bottom: 2rem;
+  right: 6rem; /* Ajustado para estar al lado de WhatsApp en móvil */
   top: auto;
   transition: transform 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -245,6 +253,105 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 
 .w-100 { width: 100%; display: block; }
 
+/* Highlights Section */
+.highlights {
+  display: grid;
+  gap: 1.5rem;
+  padding: 5rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.highlight {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.highlight:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.highlight-number {
+  font-family: 'Bebas Neue';
+  font-size: 6rem;
+  color: var(--primary);
+  line-height: 1;
+  opacity: 0.05;
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  pointer-events: none;
+}
+
+.highlight h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+  letter-spacing: 0.5px;
+}
+
+.highlight p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Horarios Section */
+.schedule-section {
+  padding: 6rem 1rem;
+  background: var(--bg-dark);
+  color: white;
+  text-align: center;
+}
+
+.search-box {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+#menuSearch {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.schedule-grid {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.3s;
+}
+
+.schedule-item.open { border-left: 4px solid var(--secondary); }
+.schedule-item.muted { opacity: 0.3; filter: grayscale(1); }
+.schedule-item span { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; }
+.schedule-item strong { font-family: 'Bebas Neue'; font-size: 1.4rem; color: var(--secondary); }
+
 /* Menú Grid */
 .menu-section { padding: 4rem 1rem; }
 .section-heading { text-align: center; margin-bottom: 3rem; }
@@ -264,28 +371,29 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   margin-bottom: 2rem;
 }
 
-.menu-grid { display: grid; gap: 1rem; }
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
 .menu-item {
   background: white;
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: var(--radius);
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
   gap: 1rem;
-  align-items: center;
   box-shadow: var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(0,0,0,0.05);
 }
 
-.menu-item:hover {
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-}
-
 .item-img {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 160px;
   object-fit: cover;
   border-radius: 12px;
   background: #f0f0f0;
@@ -309,7 +417,6 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .add-btn:hover {
   background: var(--primary);
 }
-
 /* Carrito Modal */
 .cart-modal {
   position: fixed;
@@ -339,6 +446,59 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .cart-content::-webkit-scrollbar-thumb {
   background-color: var(--primary);
   border-radius: 10px;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.notes-area {
+  margin-bottom: 1.5rem;
+}
+
+.notes-area label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+#orderNotes {
+  width: 100%;
+  height: 60px;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  resize: none;
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  color: white;
+  padding: 4rem 1.5rem 2rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  display: grid;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.6;
 }
 
 .cart-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
@@ -385,10 +545,10 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .whatsapp-float {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  right: 1.5rem;
   background: #25d366;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -403,8 +563,13 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .whatsapp-float svg { width: 35px; }
 
 @media (min-width: 768px) {
-  .hero-content { grid-template-columns: 1.2fr 0.8fr; align-items: center; }
-  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .hero { text-align: left; padding: 2rem 1rem 6rem; }
+  .hero-content { grid-template-columns: 1.2fr 0.8fr; align-items: center; justify-items: start; }
+  .hero-text { margin-inline: 0; }
+  .hero-video-wrapper { width: 100%; max-width: 380px; }
+  .cart-toggle { right: 6.5rem; padding: 0.75rem 1.25rem; }
+  .whatsapp-float { right: 2rem; width: 60px; height: 60px; }
+  .highlights { grid-template-columns: repeat(3, 1fr); }
   .cart-modal.active { align-items: center; }
   .cart-content { border-radius: var(--radius); }
 }

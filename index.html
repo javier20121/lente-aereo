@@ -53,21 +53,21 @@
   <main>
     <section class="highlights">
       <article class="highlight">
-        <p class="highlight-number">01</p>
-        <h3>Hamburguesas con presencia</h3>
-        <p>Sabores intensos, combinaciones bien pensadas y porciones que cumplen.</p>
+        <span class="highlight-number">01</span>
+        <h3>Sabor 100% Artesanal</h3>
+        <p>Medallones de carne seleccionada, smash en su punto justo y pan horneado cada día.</p>
       </article>
 
       <article class="highlight">
-        <p class="highlight-number">02</p>
-        <h3>Ideal para la noche</h3>
-        <p>Tu parada de miercoles a domingo para comer rico sin vueltas.</p>
+        <span class="highlight-number">02</span>
+        <h3>La Parada de la Noche</h3>
+        <p>Tu punto de encuentro de Miércoles a Domingo para disfrutar sin vueltas.</p>
       </article>
 
       <article class="highlight">
-        <p class="highlight-number">03</p>
-        <h3>Menu en actualizacion</h3>
-        <p>Estamos dejando todo listo para cargar cada burger apenas me pases la carta.</p>
+        <span class="highlight-number">03</span>
+        <h3>Ingredientes Reales</h3>
+        <p>Salsas caseras, vegetales frescos y ese toque de barrio que nos hace únicos.</p>
       </article>
     </section>
 
@@ -116,6 +116,9 @@
         <p class="section-text">
           Delivery: $1.000 - $1.600 según zona.
         </p>
+        <div class="search-box">
+          <input type="text" id="menuSearch" placeholder="Buscá tu burger favorita..." oninput="filterMenu()">
+        </div>
       </div>
 
       <div id="menuContainer" class="menu-grid">
@@ -123,6 +126,27 @@
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="img/logo.png" alt="Logo" class="brand-logo">
+        <p>Comida especial hecha con calidad.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <p>📍 Iguazú, Misiones</p>
+        <p>📞 3757 504214</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Carlos Junior. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
   <!-- Carrito Modal -->
   <div class="cart-modal" id="cartModal">
@@ -133,6 +157,10 @@
       </div>
       <div id="cartItems"></div>
       <div class="cart-footer">
+        <div class="notes-area">
+          <label for="orderNotes">¿Alguna indicación? (sin cebolla, cambio, etc):</label>
+          <textarea id="orderNotes" placeholder="Escribí acá tus aclaraciones..."></textarea>
+        </div>
         <div class="cart-total">Total: <span id="cartTotalText">$0</span></div>
         <button class="button button-primary w-100" id="checkoutBtn">Pedir por WhatsApp</button>
       </div>
