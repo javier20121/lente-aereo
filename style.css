@@ -1,8 +1,11 @@
 :root {
-  --primary: #C62828; /* Rojo intenso */
-  --secondary: #FFD600; /* Amarillo */
+  --primary: #CD0508; /* Rojo */
+  --secondary: #FEAE0D; /* Amarillo/Naranja */
+  --brown: #B05328; /* Marrón */
+  --white-card: #F5F5F5; /* Blanco para tarjetas */
   --bg-dark: #1A1A1A; /* Negro más moderno */
-  --bg-light: #F8F9FA; /* Gris muy claro, menos amarillento */
+  --bg-light: #F5F5F5;
+  --bg-gradient: linear-gradient(135deg, #CD0508 0%, #B05328 50%, #FEAE0D 100%);
   --text-dark: #1A1A1A;
   --text-muted: #666;
   --text-light: #888;
@@ -26,13 +29,13 @@
 .img-animate { animation: slideInLeft 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -15px, 0); }
 }
 
 @keyframes heroZoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+  from { transform: scale(1) translate3d(0,0,0); }
+  to { transform: scale(1.05) translate3d(0,0,0); }
 }
 
 html {
@@ -48,7 +51,8 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--bg-light);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
   color: var(--text-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -70,7 +74,9 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
-  background: var(--bg-light);
+  background: rgba(245, 245, 245, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
   z-index: 50;
   scrollbar-width: none;
 }
@@ -112,6 +118,7 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   inset: 0;
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000') center/cover;
   z-index: -1;
+  backface-visibility: hidden;
   animation: heroZoom 20s infinite alternate ease-in-out;
 }
 
@@ -173,6 +180,10 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.15);
   animation: float 6s ease-in-out infinite;
+  isolation: isolate;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
 }
 
 .side-video {
@@ -180,6 +191,8 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   height: 100%;
   display: block;
   object-fit: cover;
+  border-radius: 35px; /* Refuerza el recorte en algunos navegadores */
+  pointer-events: none;
 }
 
 .cart-toggle {
@@ -357,9 +370,30 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .section-heading { text-align: center; margin-bottom: 3rem; }
 .category-title { 
   margin: 2rem 0 1rem; 
-  border-bottom: 2px solid var(--primary); 
-  display: inline-block; 
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  display: inline-block;
+  position: relative;
   scroll-margin-top: 100px; /* Evita que el título quede debajo de la nav al hacer clic */
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background-color: var(--secondary);
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 2px;
+}
+
+/* Cuando se hace hover en la sección completa, se expande el subrayado del título */
+.menu-category-section:hover .category-title::after {
+  width: 100%;
 }
 
 .business-info {
@@ -373,13 +407,19 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  /* Una columna por defecto para evitar que se apriete en móviles */
+  grid-template-columns: 1fr; 
+  gap: 1.25rem;
   padding: 1rem 0;
 }
 
+@media (min-width: 480px) {
+  /* Solo activa las dos columnas si el ancho de pantalla es suficiente */
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+}
+
 .menu-item {
-  background: white;
+  background: var(--white-card);
   padding: 1rem;
   border-radius: var(--radius);
   display: flex;
@@ -404,7 +444,7 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
 .item-price { color: var(--primary); font-weight: 800; }
 
 .add-btn {
-  background: var(--bg-dark);
+  background: var(--brown);
   color: white;
   border: none;
   width: 32px;
@@ -526,7 +566,7 @@ h1, h2, h3, .brand-mark, .eyebrow { font-family: 'Bebas Neue', sans-serif; text-
   bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--bg-dark);
+  background: #000000;
   color: white;
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
