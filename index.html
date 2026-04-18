@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Carlos Junior | Hamburguesas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos JR | Delivery & Take Away</title>
   <meta
     name="description"
-    content="Carlos Junior: hamburguesas bien cargadas, papas crocantes y noches con mucho sabor. Abierto de miércoles a domingo de 20:00 a 23:00."
+    content="Carlos JR: hamburguesas bien cargadas, papas crocantes y noches con mucho sabor. Abierto de miÃ©rcoles a domingo de 20:00 a 23:00."
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,10 @@
         </div>
       </div>
 
-      <button class="cart-toggle" id="cartToggle">🛒 <span id="cartCount">0</span></button>
+      <button class="cart-toggle" id="cartToggle" type="button" aria-controls="cartModal" aria-expanded="false">
+        <span class="cart-toggle-label">Mi pedido</span>
+        <span class="cart-count-badge" id="cartCount" aria-live="polite" hidden>0</span>
+      </button>
     </nav>
 
     <section class="hero-content">
@@ -55,19 +58,19 @@
       <article class="highlight">
         <span class="highlight-number">01</span>
         <h3>Sabor 100% Artesanal</h3>
-        <p>Medallones de carne seleccionada, smash en su punto justo y pan horneado cada día.</p>
+        <p>Medallones de carne seleccionada, smash en su punto justo y pan horneado cada dia.</p>
       </article>
 
       <article class="highlight">
         <span class="highlight-number">02</span>
         <h3>La Parada de la Noche</h3>
-        <p>Tu punto de encuentro de Miércoles a Domingo para disfrutar sin vueltas.</p>
+        <p>Tu punto de encuentro de miercoles a domingo para disfrutar sin vueltas.</p>
       </article>
 
       <article class="highlight">
         <span class="highlight-number">03</span>
         <h3>Ingredientes Reales</h3>
-        <p>Salsas caseras, vegetales frescos y ese toque de barrio que nos hace únicos.</p>
+        <p>Salsas caseras, vegetales frescos y ese toque de barrio que nos hace añicos.</p>
       </article>
     </section>
 
@@ -87,7 +90,7 @@
           <strong>Cerrado</strong>
         </div>
         <div class="schedule-item open">
-          <span>Miercoles</span>
+          <span>Miércoles</span>
           <strong>20:00 a 23:00</strong>
         </div>
         <div class="schedule-item open">
@@ -99,7 +102,7 @@
           <strong>20:00 a 23:00</strong>
         </div>
         <div class="schedule-item open">
-          <span>Sabado</span>
+          <span>SÃ¡bado</span>
           <strong>20:00 a 23:00</strong>
         </div>
         <div class="schedule-item open">
@@ -114,14 +117,14 @@
         <p class="eyebrow">Menu</p>
         <h2>Nuestra Carta</h2>
         <p class="section-text">
-          Delivery: $1.000 - $1.600 según zona.
+          Delivery: $1.000 a $1.600 segun la zona.
         </p>
         <div class="search-box">
-          <input type="text" id="menuSearch" placeholder="Buscá tu burger favorita..." oninput="filterMenu()">
+          <input type="text" id="menuSearch" placeholder="BuscÃ¡ tu burger favorita..." oninput="filterMenu()">
         </div>
       </div>
 
-      <div id="menuContainer" class="menu-grid">
+      <div id="menuContainer" class="menu-sections">
         <!-- Inyectado por JavaScript -->
       </div>
     </section>
@@ -130,48 +133,62 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="img/logo.png" alt="Logo" class="brand-logo">
+        <img src="img/logo.png" alt="Logo Carlos Junior" class="brand-logo">
         <p>Comida especial hecha con calidad.</p>
       </div>
       <div class="footer-links">
         <h4>Contacto</h4>
-        <p>📍 Iguazú, Misiones</p>
-        <p>📞 3757 504214</p>
-        <div class="social-icons">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="Facebook">FB</a>
+        <p>comandante andresito, Misiones</p>
+        <p>3757 504214</p>
+        <div class="footer-actions">
+          <a class="footer-link-pill" href="https://wa.me/5493757504214" target="_blank" rel="noreferrer">Pedir por WhatsApp</a>
+          <a class="footer-link-pill footer-link-pill-secondary" href="#horarios">Ver horarios</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2024 Carlos Junior. Todos los derechos reservados.</p>
+      <p>&copy; <span id="currentYear"></span> Carlos Junior. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <!-- Carrito Modal -->
-  <div class="cart-modal" id="cartModal">
+  <div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
     <div class="cart-content">
       <div class="cart-header">
-        <h3>Tu Pedido</h3>
-        <button id="closeCart">&times;</button>
+        <h3 id="cartTitle">Tu Pedido</h3>
+        <button id="closeCart" type="button" aria-label="Cerrar carrito">&times;</button>
       </div>
       <div id="cartItems"></div>
       <div class="cart-footer">
+        <div class="order-mode" aria-label="Tipo de pedido">
+          <label class="mode-option">
+            <input type="radio" name="orderType" value="delivery" checked>
+            <span>Delivery</span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="orderType" value="pickup">
+            <span>Retiro</span>
+          </label>
+        </div>
+        <div class="notes-area" id="addressField">
+          <label for="orderAddress">Dirección de entrega</label>
+          <input id="orderAddress" type="text" placeholder="Calle, número y referencia">
+        </div>
         <div class="notes-area">
-          <label for="orderNotes">¿Alguna indicación? (sin cebolla, cambio, etc):</label>
+          <label for="orderNotes">¿Alguna indicación? (sin cebolla, cambio, etc.)</label>
           <textarea id="orderNotes" placeholder="Escribí acá tus aclaraciones..."></textarea>
         </div>
+        <p class="shipping-note">Envío: $1.000 a $1.600 según la zona.</p>
         <div class="cart-total">Total: <span id="cartTotalText">$0</span></div>
-        <button class="button button-primary w-100" id="checkoutBtn">Pedir por WhatsApp</button>
+        <button class="button button-primary w-100" id="checkoutBtn" type="button">Pedir por WhatsApp</button>
       </div>
     </div>
   </div>
 
-  <!-- WhatsApp Floating -->
-  <a href="https://wa.me/5493757504214" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-    <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825.737 5.587 2.137 8L0 32l8.25-2.163c2.337 1.413 5.025 2.163 7.75 2.163 8.837 0 16-7.163 16-16s-7.163-16-16-16zM10.5 9c.413 0 .813.05 1.175.438.375.387 1.375 3.313 1.5 3.563s.213.513.037.863c-.175.363-.263.587-.525.888-.263.3-.538.675-.763.9s-.513.488-.225.975c.288.5 1.288 2.113 2.763 3.425 1.9 1.688 3.5 2.213 4 2.45s.75.175 1.037-.15c.288-.325 1.238-1.438 1.563-1.938s.65-.413 1.1-.25c.45.163 2.838 1.338 3.338 1.588s.838.375.963.587c.125.213.125 1.238-.375 2.65-.5 1.413-2.475 2.263-3.413 2.338-.938.075-1.788.363-5.063-1.025-3.938-1.675-6.488-5.675-6.688-5.938-.2-.263-1.625-2.163-1.625-4.125 0-1.963 1.013-2.925 1.375-3.313.363-.388.788-.488 1.05-.488z" fill="white"/></svg>
+    <a href="https://wa.me/5493757504214" class="whatsapp-float" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+    <img src="img/logo-whatsapp.png" alt="" class="whatsapp-float-icon" loading="lazy" decoding="async">
   </a>
 
   <script src="app.js"></script>
 </body>
 </html>
+
